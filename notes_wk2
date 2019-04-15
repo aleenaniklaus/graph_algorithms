@@ -15,6 +15,7 @@ List of potentially helpful repos/libraries
 1. igraph (generating graphs)
 2. cairo (drawing graphs)
 3. Graphviz (highlight for future interactive software for webapp)
+4. SciPy (uses sparce matricies to represent graphs)
 
 
 IGRAPH
@@ -58,3 +59,20 @@ GRAPHVIZ
 - relies on DOT language
 - API(python): https://graphviz.gitlab.io/_pages/pdf/gv.3python.pdf
 - publications: http://www.graphviz.org/theory/
+
+SCIPY
+- https://docs.scipy.org/doc/scipy-0.15.1/reference/sparse.csgraph.html
+- python with heavy use of Numpy objects
+- Algorithms supported:
+    - connected components
+    - laplacian
+    - shortest path
+    - dijkstra
+    - floyd warshall
+    - bellman ford
+    - johnson's algorithm
+    - bredth first order (ing)
+    - depth first order (ing)
+    - breadth first tree
+    - depth first tree
+    - MST
