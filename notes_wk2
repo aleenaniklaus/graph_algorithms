@@ -33,7 +33,16 @@ helpful documentation/tuts for igraph
 - https://igraph.org/python/doc/tutorial/tutorial.html
 
 From Tutorial above: ask John what the heck the below is talking about
-```igraph includes a large set of graph generators which can be divided into two groups: deterministic and stochastic graph generators. Deterministic generators produce the same graph if you call them with exactly the same parameters, while stochastic generators produce a different graph every time. Deterministic generators include methods for creating trees, regular lattices, rings, extended chordal rings, several famous graphs and so on, while stochastic generators are used to create Erdős-Rényi random networks, Barabási-Albert networks, geometric random graphs and such. igraph has too many generators to cover them all in this tutorial, so we will only try a deterministic and a stochastic generator instead:```
+igraph includes a large set of graph generators which can be divided into two 
+groups: deterministic and stochastic graph generators. Deterministic generators
+produce the same graph if you call them with exactly the same parameters, while 
+stochastic generators produce a different graph every time. Deterministic 
+generators include methods for creating trees, regular lattices, rings, extended 
+chordal rings, several famous graphs and so on, while stochastic generators are 
+used to create Erdős-Rényi random networks, Barabási-Albert networks, geometric
+random graphs and such. igraph has too many generators to cover them all in this
+tutorial, so we will only try a deterministic and a stochastic generator instead
+
 Sudo - API documentation:
 - https://igraph.org/python/doc/igraph-module.html
 
