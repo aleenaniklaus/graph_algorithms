@@ -1,0 +1,49 @@
+General:
+GitLab tuts/docs:
+- Commandline: https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
+Python graph implementation (helpful links in order of helfulness, top being most!)
+- https://www.python-course.eu/graphs_python.php
+- https://www.python-course.eu/networkx.php
+- https://www.python-course.eu/pygraph.php
+- https://www.python.org/doc/essays/graphs/
+- https://www.geeksforgeeks.org/generate-graph-using-dictionary-python/
+
+
+List of potentially helpful repos/libraries
+1. igraph (generating graphs)
+2. cairo (drawing graphs)
+3. Graphviz (highlight for future interactive software for webapp)
+
+
+IGRAPH
+- graph generator
+- trees
+- deterministic 
+- stochastic
+- regular lattics
+- rings
+- extended chordal rings
+- several other famous graphs
+Misc:
+- requires pip for linux
+- check what os John is using
+
+
+helpful documentation/tuts for igraph
+- https://igraph.org/python/doc/tutorial/tutorial.html
+
+From Tutorial above: ask John what the heck the below is talking about
+```igraph includes a large set of graph generators which can be divided into two groups: deterministic and stochastic graph generators. Deterministic generators produce the same graph if you call them with exactly the same parameters, while stochastic generators produce a different graph every time. Deterministic generators include methods for creating trees, regular lattices, rings, extended chordal rings, several famous graphs and so on, while stochastic generators are used to create Erdős-Rényi random networks, Barabási-Albert networks, geometric random graphs and such. igraph has too many generators to cover them all in this tutorial, so we will only try a deterministic and a stochastic generator instead:```
+Sudo - API documentation:
+- https://igraph.org/python/doc/igraph-module.html
+
+CAIRO
+igraph uses cairo to visualize their graphs, but we may find a use for this library in the case where igraph is not visualizing what we need implicitly.
+- API: https://www.cairographics.org/manual/
+- example: https://www.cairographics.org/samples/
+- written in C
+
+GRAPHVIZ
+- relies on DOT language
+- API(python): https://graphviz.gitlab.io/_pages/pdf/gv.3python.pdf
+- publications: http://www.graphviz.org/theory/
