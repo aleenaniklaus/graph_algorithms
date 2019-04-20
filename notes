@@ -78,3 +78,10 @@ SCIPY
     - breadth first tree
     - depth first tree
     - MST
+    
+Week 3
+Found repository that implements checking planarity:
+https://github.com/hagberg/planarity/blob/master/doc/source/index.rst~
+
+They reference someone from google? I am not sure but the link is suggestive:
+http://code.google.com/p/planarity/
