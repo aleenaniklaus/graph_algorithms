@@ -52,7 +52,8 @@ Sudo - API documentation:
 - https://igraph.org/python/doc/igraph-module.html
 
 CAIRO
-igraph uses cairo to visualize their graphs, but we may find a use for this library in the case where igraph is not visualizing what we need implicitly.
+igraph uses cairo to visualize their graphs, but we may find a use for this 
+library in the case where igraph is not visualizing what we need implicitly.
 - API: https://www.cairographics.org/manual/
 - example: https://www.cairographics.org/samples/
 - written in C
@@ -82,6 +83,9 @@ SCIPY
 Week 3
 Found repository that implements checking planarity:
 https://github.com/hagberg/planarity/blob/master/doc/source/index.rst~
+
+Other examples from the same creator (Kurtowski included):
+https://github.com/hagberg/planarity/tree/master/examples
 
 They reference someone from google? I am not sure but the link is suggestive:
 http://code.google.com/p/planarity/
