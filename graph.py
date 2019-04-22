@@ -1,20 +1,23 @@
 
 
 """ 
-A Python program to demonstrate the adjacency 
-list representation of the graph 
+An initial file to represent the Graph as an adjacency list. 
+An alternative to the adjacency list is a sparce matrix. While
+using sparce matricies is common, syntax is overly complex as
+you must use Numpy/SciPy. Since these graphs are for proof of
+concept, there is no reason to use such powerful structures.
+Additionally, the graphs will be small, thus the heavy-duty 
+machinery behind Numpy is not necessary. 
+
+Lastly, the main advantage of adjacency list over matrix is 
+the running/space complexity is lower at O(n) (verses O(n^2)).
 
 Creation date: 4-21-19
-This code is contributed by Kanav Malhotra/GeeksForGeeks:
+Reference:
 https://www.geeksforgeeks.org/graph-and-its-representations/
 
-Advantage of adjacency list over matrix is the running/space
-complexity is lower - O(n) (verses O(n^2))
 """
 
-  
-
-  
 # A class to represent the adjacency list of the node 
 class AdjNode: 
     def __init__(self, data): 
@@ -22,8 +25,6 @@ class AdjNode:
         self.next = None
     # end
 # end
-  
-# Code from GeeksForGeeks start
 
 # A class to represent a graph. A graph 
 # is the list of the adjacency lists. 
@@ -79,8 +80,6 @@ class Graph:
 #     graph.print_graph() 
 # # end
 
-
-# Code from GeeksForGeeks end
 # Petersen Graph
 V = 10
 graph = Graph(V) 
