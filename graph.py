@@ -22,7 +22,7 @@ https://www.geeksforgeeks.org/graph-and-its-representations/
 class AdjNode: 
     def __init__(self, data): 
         self.vertex = data 
-        self.next = None
+        self.edge = 1
     # end
 # end
 
@@ -33,31 +33,32 @@ class AdjNode:
 class Graph: 
     def __init__(self, vertices): 
         self.V = vertices 
-        self.graph = [None] * self.V
+        self.graph = [ [] for _ in range(self.V) ]
     # end
   
     # Function to add an edge in an undirected graph 
     def add_edge(self, src, dest): 
         # Adding the node to the source node 
         node = AdjNode(dest) 
-        node.next = self.graph[src] 
-        self.graph[src] = node 
+        self.graph[src].append(node)
   
         # Adding the source node to the destination as 
         # it is the undirected graph 
         node = AdjNode(src) 
-        node.next = self.graph[dest] 
-        self.graph[dest] = node 
+        self.graph[dest].append(node)
+
+        # Optional: Print array adjacencies as they are added
+        # print([len(self.graph[i]) for i in range(self.V)])
     # end
   
     # Function to print the graph 
     def print_graph(self): 
         for i in range(self.V): 
-            print("Neighbors of {}".format(i), end="") 
-            temp = self.graph[i] 
-            while temp: 
-                print(" -> {}".format(temp.vertex), end="") 
-                temp = temp.next
+        	# Print length of array of graph[i]
+            # print(len(self.graph[i]))
+            print("Neighbors of {}".format(i), end="")
+            for neighbor in self.graph[i]:
+                print(" -> {}".format(neighbor.vertex), end="") 
             # end
             print(" \n")
         # end
