@@ -1,20 +1,11 @@
 
+"""
 
-""" 
-An initial file to represent the Graph as an adjacency list. 
-An alternative to the adjacency list is a sparce matrix. While
-using sparce matricies is common, syntax is overly complex as
-you must use Numpy/SciPy. Since these graphs are for proof of
-concept, there is no reason to use such powerful structures.
-Additionally, the graphs will be small, thus the heavy-duty 
-machinery behind Numpy is not necessary. 
-
-Lastly, the main advantage of adjacency list over matrix is 
-the running/space complexity is lower at O(n) (verses O(n^2)).
-
+Creator: Aleena Watson
 Creation date: 4-21-19
-Reference:
-https://www.geeksforgeeks.org/graph-and-its-representations/
+
+Graph structure represented as an adjacency list
+of arrays. 
 
 """
 
