@@ -43,44 +43,58 @@ class Graph:
     # end
 
     def delete_vertex(self, vertex):
-    	for i in range(self.V):
-    		if i != vertex:
-    			while vertex in self.graph[i]:
-    				self.graph[i].remove(vertex)
-    			# end
-    		# end
-    	# end
-    	self.graph[vertex] = []
-    	
-    	for i in range(self.V):
-    		for j in self.graph[i]:
-    			# test: print vertices as you iterate
-    			# print("{} ".format(i), end="")
-    			# test: print neighbors as you iterate
-    			# print("{} ".format(j.vertex), end="")
-    			if j.vertex == vertex:
-    				# test: did you make it into endpoints of deleted vertex?
-    				# print("here")
-    				self.graph[i].remove(j)
-    			# end
-    		# end
-    	# end
+        for i in range(self.V):
+            if i != vertex:
+                while vertex in self.graph[i]:
+                    self.graph[i].remove(vertex)
+                # end
+            # end
+        # end
+        self.graph[vertex] = []
+
+        for i in range(self.V):
+            for j in self.graph[i]:
+                # test: print vertices as you iterate
+                # print("{} ".format(i), end="")
+                # test: print neighbors as you iterate
+                # print("{} ".format(j.vertex), end="")
+                if j.vertex == vertex:
+                    # test: did you make it into endpoints of deleted vertex?
+                    # print("here")
+                    self.graph[i].remove(j)
+                # end
+            # end
+        # end
+    # end
+
+    def delete_edge(self, u, v):	
+        for j in self.graph[u]:
+            if j.vertex == v:
+                self.graph[u].remove(j)
+            # end
+        # end
+        for i in self.graph[v]:
+            if i.vertex == u:
+                self.graph[v].remove(i)
+            # end
+        # end
+
     # end
 
     def cycle_finder(self, src, dest):
-    	for i in range(self.V): 
-    		for neighbor in self.graph[i]: 
-    			continue
-    		# end
-    	# end
+        for i in range(self.V):
+            for neighbor in self.graph[i]:
+                continue
+            # end
+        # end
     #end
 
     def print_neighbors(self, vertex):
-    	print(vertex, ":")
-    	for neighbor in self.graph[vertex]:
-    		print("{}  ".format(neighbor.vertex), end="")
-    	# end
-    	print("\n")
+        print(vertex, ":")
+        for neighbor in self.graph[vertex]:
+            print("{}  ".format(neighbor.vertex), end="")
+        # end
+        print("\n")
     # end
   
     # Function to print the graph 
@@ -92,35 +106,29 @@ class Graph:
         # end
     # end
 # end
-  
-  
-# Driver program to the above graph class 
-# if __name__ == "__main__": 
-#    
-# # end
 
 # Petersen Graph
 V = 10
-petersen_graph = Graph(V) 
-petersen_graph.add_edge(0, 1) 
-petersen_graph.add_edge(0, 4)
-petersen_graph.add_edge(0, 5) 
-petersen_graph.add_edge(1, 2) 
-petersen_graph.add_edge(1, 6) 
-petersen_graph.add_edge(2, 3) 
-petersen_graph.add_edge(2, 7) 
-petersen_graph.add_edge(3, 4) 
-petersen_graph.add_edge(3, 8) 
-petersen_graph.add_edge(4, 9)
-petersen_graph.add_edge(5, 7)
-petersen_graph.add_edge(5, 8)
-petersen_graph.add_edge(6, 8)
-petersen_graph.add_edge(6, 9)
-petersen_graph.add_edge(7, 9)
+pg = Graph(V) 
+pg.add_edge(0, 1)
+pg.add_edge(0, 4)
+pg.add_edge(0, 5)
+pg.add_edge(1, 2)
+pg.add_edge(1, 6)
+pg.add_edge(2, 3)
+pg.add_edge(2, 7)
+pg.add_edge(3, 4)
+pg.add_edge(3, 8)
+pg.add_edge(4, 9)
+pg.add_edge(5, 7)
+pg.add_edge(5, 8)
+pg.add_edge(6, 8)
+pg.add_edge(6, 9)
+pg.add_edge(7, 9)
 
 # petersen_graph.print_adjacencyList()
+# petersen_graph.delete_vertex(8)
+pg.delete_edge(0, 1)
 
-petersen_graph.delete_vertex(8)
-
-petersen_graph.print_adjacencyLists()
+pg.print_adjacencyLists()
 #comment
