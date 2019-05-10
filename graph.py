@@ -11,10 +11,11 @@ of arrays.
 
 # A class to represent the adjacency list of the node 
 class AdjNode: 
-    def __init__(self, data): 
-        self.vertex = data 
-        self.edge = 1
-    # end
+	def __init__(self, data):
+		self.vertex = data
+		self.edge = 1
+		self.degree = None
+	# end
 # end
 
 # A class to represent a graph . A graph 
@@ -22,89 +23,133 @@ class AdjNode:
 # Size of the array will be the no. of the 
 # vertices "V" 
 class Graph: 
-    def __init__(self, vertices): 
-        self.V = vertices 
-        self.graph = [ [] for _ in range(self.V) ]
-    # end
+	def __init__(self, vertices):
+		self.V = vertices
+		self.graph = [ [] for _ in range(self.V) ]
+	# end
   
-    # Function to add an edge in an undirected graph 
-    def add_edge(self, src, dest): 
-        # Adding the node to the source node 
-        node = AdjNode(dest) 
-        self.graph[src].append(node)
+	# Function to add an edge in an undirected graph
+	def add_edge(self, src, dest):
+		# Adding the node to the source node
+		node = AdjNode(dest)
+		self.graph[src].append(node)
   
-        # Adding the source node to the destination as 
-        # it is the undirected graph 
-        node = AdjNode(src) 
-        self.graph[dest].append(node)
+		# Adding the source node to the destination as
+		# it is the undirected graph
+		node = AdjNode(src)
+		self.graph[dest].append(node)
+	# end
 
-        # Optional: Print array adjacencies as they are added
-        # print([len(self.graph[i]) for i in range(self.V)])
-    # end
+	def delete_vertex(self, vertex):
+		for i in range(self.V):
+			if i != vertex:
+				while vertex in self.graph[i]:
+					self.graph[i].remove(vertex)
+				# end
+			# end
+		# end
+		self.graph[vertex] = []
 
-    def delete_vertex(self, vertex):
-        for i in range(self.V):
-            if i != vertex:
-                while vertex in self.graph[i]:
-                    self.graph[i].remove(vertex)
-                # end
-            # end
-        # end
-        self.graph[vertex] = []
+		for i in range(self.V):
+			for j in self.graph[i]:
+				# test: print vertices as you iterate
+				# print("{} ".format(i), end="")
+				# test: print neighbors as you iterate
+				# print("{} ".format(j.vertex), end="")
+				if j.vertex == vertex:
+					# test: did you make it into endpoints of deleted vertex?
+					# print("here")
+					self.graph[i].remove(j)
+				# end
+			# end
+		# end
+	# end
 
-        for i in range(self.V):
-            for j in self.graph[i]:
-                # test: print vertices as you iterate
-                # print("{} ".format(i), end="")
-                # test: print neighbors as you iterate
-                # print("{} ".format(j.vertex), end="")
-                if j.vertex == vertex:
-                    # test: did you make it into endpoints of deleted vertex?
-                    # print("here")
-                    self.graph[i].remove(j)
-                # end
-            # end
-        # end
-    # end
+	def delete_edge(self, u, v):
+		for j in self.graph[u]:
+			if j.vertex == v:
+				self.graph[u].remove(j)
+			# end
+		# end
+		for i in self.graph[v]:
+			if i.vertex == u:
+				self.graph[v].remove(i)
+			# end
+		# end
+	# end
 
-    def delete_edge(self, u, v):	
-        for j in self.graph[u]:
-            if j.vertex == v:
-                self.graph[u].remove(j)
-            # end
-        # end
-        for i in self.graph[v]:
-            if i.vertex == u:
-                self.graph[v].remove(i)
-            # end
-        # end
+	# dfs_helper() and dfs() adapted from
+	# https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
+	# uncomment print(v) to see traversal!
 
-    # end
+	def dfs_helper(self, v, visited):
+		visited[v] = True
+		# print(v)
 
-    def cycle_finder(self, src, dest):
-        for i in range(self.V):
-            for neighbor in self.graph[i]:
-                continue
-            # end
-        # end
-    #end
+		for j in self.graph[v]:
+			if visited[j.vertex] == False:
+				self.dfs_helper(j.vertex, visited)
+			# end
+		# end
+	# end
 
-    def print_neighbors(self, vertex):
-        print(vertex, ":")
-        for neighbor in self.graph[vertex]:
-            print("{}  ".format(neighbor.vertex), end="")
-        # end
-        print("\n")
-    # end
+	def dfs(self):
+		v = len(self.graph)
+		visited = [False] * (v)
+		for i in range(v):
+			if visited[i] == False:
+				self.dfs_helper(i, visited)
+			# end
+		# end
+	# end
+
+	def cycle_finder(self):
+
+		# TODO:
+		# add "degree" to AdjNode and avoid
+		# cycling through graph if all degrees =1
+		# except one node (ie: stars)
+
+		visited = []
+		for i in range(self.V):
+			for neighbor in self.graph[i]:
+
+				# TODO:
+				# DFS
+
+				visited.append(neighbor)
+
+			# end
+		# end
+		print(len(visited))
+	#end
+
+	def print_neighbors(self, vertex):
+		print(vertex, ":")
+		for neighbor in self.graph[vertex]:
+			print("{}  ".format(neighbor.vertex), end="")
+		# end
+		print("\n")
+	# end
   
-    # Function to print the graph 
-    def print_adjacencyLists(self): 
-        for i in range(self.V): 
-            # Print length of array of graph[i]
-            # print(len(self.graph[i]))
-            self.print_neighbors(i)
-        # end
-    # end
+	# Function to print the graph
+	def print_adjacencyLists(self):
+		for i in range(self.V):
+			# Print length of array of graph[i]
+			# print(len(self.graph[i]))
+			self.print_neighbors(i)
+		# end
+	# end
+
+	# TODO:
+	# implement print degree sequence, but before this can be done
+	# full implementation of degree counter must be completed
+
+	# def print_degreeSequence(self):
+	# 	for i in self.graph:
+	# 		print("{} ".format(i.degree), end="")
+	# 	# end
+	# # end
 # end
 
 # Petersen Graph
@@ -126,9 +171,12 @@ pg.add_edge(6, 8)
 pg.add_edge(6, 9)
 pg.add_edge(7, 9)
 
-# petersen_graph.print_adjacencyList()
-# petersen_graph.delete_vertex(8)
-pg.delete_edge(0, 1)
 
-pg.print_adjacencyLists()
+# pg.print_adjacencyList()
+# pg.delete_vertex(8)
+# pg.delete_edge(0, 1)
+# pg.cycle_finder()
+# pg.dfs()
+# pg.print_adjacencyLists()
+# pg.print_degreeSequence()
 #comment
