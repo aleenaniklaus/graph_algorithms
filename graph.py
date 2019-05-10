@@ -84,7 +84,7 @@ class Graph:
 
 	def dfs_helper(self, v, visited):
 		visited[v] = True
-		# print(v)
+		print(v)
 
 		for j in self.graph[v]:
 			if visited[j.vertex] == False:
@@ -103,26 +103,49 @@ class Graph:
 		# end
 	# end
 
-	def cycle_finder(self):
+
+	# adapted from
+	# https://www.geeksforgeeks.org/python-program-for-detect-cycle-in-a-directed-graph/
+	# 
+	# TODO:
+	# implement as a list of verticies (0...9) instead boolean values
+
+	def isCyclic_helper(self, r, visited, stack):
 
 		# TODO:
 		# add "degree" to AdjNode and avoid
 		# cycling through graph if all degrees =1
 		# except one node (ie: stars)
 
-		visited = []
-		for i in range(self.V):
-			for neighbor in self.graph[i]:
+		v = len(self.graph)
+		visited[r] = True
+		stack[r] = True
+		print(r)
 
-				# TODO:
-				# DFS
-
-				visited.append(neighbor)
-
+		for i in self.graph[r]:
+			if visited[i.vertex] == False:
+				if self.isCyclic_helper(i.vertex, visited, stack) == True:
+					return True
+				# end
+			elif stack[r] == True:
+				return True
 			# end
 		# end
-		print(len(visited))
+		stack[r] = False
+		return False
 	#end
+
+	def isCyclic(self):
+		visited = [False] * self.V
+		stack = [False] * self.V
+		for i in range(self.V):
+			if visited[i] == False:
+				if self.isCyclic_helper(i, visited, stack) == True:
+					return True
+				# end
+			# end
+		# end
+	# end
 
 	def print_neighbors(self, vertex):
 		print(vertex, ":")
@@ -176,7 +199,8 @@ pg.add_edge(7, 9)
 # pg.delete_vertex(8)
 # pg.delete_edge(0, 1)
 # pg.cycle_finder()
-# pg.dfs()
+pg.dfs()
+pg.isCyclic()
 # pg.print_adjacencyLists()
 # pg.print_degreeSequence()
 #comment
