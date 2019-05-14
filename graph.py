@@ -105,46 +105,51 @@ class Graph:
 
 
 	# adapted from
-	# https://www.geeksforgeeks.org/python-program-for-detect-cycle-in-a-directed-graph/
+	# https://www.geeksforgeeks.org/detect-cycle-undirected-graph/
 	# 
 	# TODO:
 	# implement as a list of verticies (0...9) instead boolean values
 
-	def isCyclic_helper(self, r, visited, stack):
+	def isCyclic_helper(self, v, visited, parent):
 
 		# TODO:
+		# 1:
+		# change function to not be recursive
+		# store array of cyclic numbers and return it
+		# to the calling function instead of returning
+		# "True", if no cycle, return None
+		#
+		# 2:
 		# add "degree" to AdjNode and avoid
 		# cycling through graph if all degrees =1
 		# except one node (ie: stars)
+		
+		visited[v] = True
+		print(v)
 
-		v = len(self.graph)
-		visited[r] = True
-		stack[r] = True
-		print(r)
-
-		for i in self.graph[r]:
+		for i in self.graph[v]:
 			if visited[i.vertex] == False:
-				if self.isCyclic_helper(i.vertex, visited, stack) == True:
+				if self.isCyclic_helper(i.vertex, visited, v):
 					return True
 				# end
-			elif stack[r] == True:
+			elif parent != -1:
 				return True
 			# end
 		# end
-		stack[r] = False
+		del cycle
 		return False
 	#end
 
 	def isCyclic(self):
 		visited = [False] * self.V
-		stack = [False] * self.V
 		for i in range(self.V):
 			if visited[i] == False:
-				if self.isCyclic_helper(i, visited, stack) == True:
+				if self.isCyclic_helper(i, visited, -1) == True:
 					return True
 				# end
 			# end
 		# end
+		return False
 	# end
 
 	def print_neighbors(self, vertex):
