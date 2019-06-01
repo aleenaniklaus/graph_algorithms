@@ -122,45 +122,70 @@ class Graph:
 		todo_list.append(v)
 		while len(todo_list) > 0:
 			# get the next element of the subarray
-			x = todo_list.pop(-1)
 			# print(todo_list)
-			if visited[x] == True:
+			top_todo = todo_list.pop(-1)
+			# print(todo_list)
+			if visited[top_todo] == True:
 				continue
 			# end
-			if end != None and x == end:
+
+			# we will only enter this if statement if the optional
+			# endpoint "end" has been passed in. This condition was
+			# added in specifically for cycle_finder()
+			if end != None and top_todo == end:
+				# print("in if")
 				return True, history
 			# end
-			visited[x] = True
-			history.append(x)
-			for j in reversed(self.graph[x]):
+			# if end != None and top_todo != end:
+			# 	continue
+			# end
+			visited[top_todo] = True
+			history.append(top_todo)
+
+			# taking the elements in reverse for the todo list is what
+			# differentiates this dfs algo from bfs algo above
+			for j in reversed(self.graph[top_todo]):
 				todo_list.append(j.vertex)
 			# end
+		# end
+		if end != None:
+			# print(history)
+			return False, history
 		# end
 		return True, history
 	# end
 
-	def find_cycle(self, v):
-		for i in self.graph[v]:
+	def cycle_finder(self, v):
+		# Unexpected behaviour happening while iterating through a list
+		# which is also being modified, midigated by using list
+		# comprehension in line 165. Makes a copy of v's adjacency list
+		# and iterates through that, instead of iterating through list
+		# which has an edge deleted then added back into it.
+
+		for i in [node for node in self.graph[v]]:
 			self.delete_edge(v, i.vertex)
-			#TODO: rewrite dfs to return path taken
 			result = self.dfs(i.vertex, v)[0]
-			path = [v] + self.dfs(i.vertex, v)[1]
+			dfs_history = [v] + self.dfs(i.vertex, v)[1]
 			if result == True:
-				print("cycle")
+				print("Cycle Found!", dfs_history)
 				self.add_edge(v, i.vertex)
-				return True, path
+				return True, dfs_history
 			# end
-			self.add_edge(v, i.vertex)
+
+			if result == False:
+				print("No cycle at ", dfs_history)
+				self.add_edge(v, i.vertex)
+			# end
 		# end
 		return False
+
 	# end
+
 
 	# dfs_helper() and dfs() adapted from
 	# https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
 	def dfs_allHelper(self, v, visited):
 		visited[v] = True
-		print(v)
-
 		for j in self.graph[v]:
 			if visited[j.vertex] == False:
 				self.dfs_allHelper(j.vertex, visited)
@@ -186,8 +211,6 @@ class Graph:
 	# Function to print the graph
 	def print_list(self, v= None):
 		for i in range(self.size):
-			# Print length of array of graph[i]
-			# print(len(self.graph[i]))
 			self.print_neighbors(i)
 		# end
 	# end
@@ -220,7 +243,7 @@ pg.add_edge(5, 8)
 pg.add_edge(6, 8)
 pg.add_edge(6, 9)
 pg.add_edge(7, 9)
-print(pg.find_cycle(0))
+pg.cycle_finder(0)
 
 # size = 6
 # house = Graph(size)
@@ -231,7 +254,21 @@ print(pg.find_cycle(0))
 # house.add_edge(3,4)
 # house.add_edge(5,4)
 
+# house.dfs(1)
+# house.cycle_finder(2)
 # print(house.find_cycle(1))
+
+# size = 7
+# balloon = Graph(size)
+# balloon.add_edge(0,1)
+# balloon.add_edge(0,3)
+# balloon.add_edge(0,5)
+# balloon.add_edge(1,2)
+# balloon.add_edge(2,4)
+# balloon.add_edge(3,4)
+# balloon.add_edge(5,6)
+#
+# balloon.cycle_finder(0)
 
 # pg.print_list()
 # pg.delete_vertex(8)
