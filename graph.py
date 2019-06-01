@@ -122,9 +122,7 @@ class Graph:
 		todo_list.append(v)
 		while len(todo_list) > 0:
 			# get the next element of the subarray
-			# print(todo_list)
 			top_todo = todo_list.pop(-1)
-			# print(todo_list)
 			if visited[top_todo] == True:
 				continue
 			# end
@@ -133,11 +131,7 @@ class Graph:
 			# endpoint "end" has been passed in. This condition was
 			# added in specifically for cycle_finder()
 			if end != None and top_todo == end:
-				# print("in if")
 				return True, history
-			# end
-			# if end != None and top_todo != end:
-			# 	continue
 			# end
 			visited[top_todo] = True
 			history.append(top_todo)
@@ -149,7 +143,6 @@ class Graph:
 			# end
 		# end
 		if end != None:
-			# print(history)
 			return False, history
 		# end
 		return True, history
