@@ -150,7 +150,7 @@ class Graph:
 
 	def cycle_finder(self, v):
 		# Unexpected behaviour happening while iterating through a list
-		# which is also being modified, midigated by using list
+		# which is also being modified, mitigated by using list
 		# comprehension in line 165. Makes a copy of v's adjacency list
 		# and iterates through that, instead of iterating through list
 		# which has an edge deleted then added back into it.
