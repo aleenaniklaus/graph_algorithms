@@ -32,14 +32,13 @@ class AdjNode:
 # A class to represent a graph . A graph 
 # is the list of the adjacency lists (also arrays).
 # Size of the array will be the no. of the 
-# vertices "V" 
+
 class Graph:
 	def __init__(self, size):
 		self.size = size
 		self.graph = [ [] for _ in range(self.size) ]
 	# end
-  
-	# Function to add an edge in an undirected graph
+
 	def add_edge(self, src, dest):
 		# Adding the node to the source node
 		node = AdjNode(dest)
@@ -63,13 +62,7 @@ class Graph:
 
 		for i in range(self.size):
 			for j in self.graph[i]:
-				# test: print vertices as you iterate
-				# print("{} ".format(i), end="")
-				# test: print neighbors as you iterate
-				# print("{} ".format(j.vertex), end="")
 				if j.vertex == vertex:
-					# test: did you make it into endpoints of deleted vertex?
-					# print("here")
 					self.graph[i].remove(j)
 				# end
 			# end
@@ -142,42 +135,48 @@ class Graph:
 				todo_list.append(j.vertex)
 			# end
 		# end
+
+		# solely for cycle finder
 		if end != None:
 			return False, history
 		# end
 		return True, history
 	# end
 
+	# returns the first cycle found at a given vertex. If the verticies
+	# are added in ascending order, this function will return the cycle
+	# correlated with its lowest number neighbor
 	def cycle_finder(self, v):
-		# Unexpected behaviour happening while iterating through a list
-		# which is also being modified, mitigated by using list
-		# comprehension in line 165. Makes a copy of v's adjacency list
-		# and iterates through that, instead of iterating through list
-		# which has an edge deleted then added back into it.
-
 		for i in [node for node in self.graph[v]]:
 			self.delete_edge(v, i.vertex)
 			result = self.dfs(i.vertex, v)[0]
 			dfs_history = [v] + self.dfs(i.vertex, v)[1]
 			if result == True:
-				print("Cycle Found!", dfs_history)
+				# print("Cycle Found!", dfs_history)
 				self.add_edge(v, i.vertex)
 				return True, dfs_history
 			# end
 
 			if result == False:
-				print("No cycle at ", dfs_history)
+				# print("No cycle at ", dfs_history)
 				self.add_edge(v, i.vertex)
 			# end
 		# end
-		return False
-
+		return False, []
 	# end
 
+	# given a cycle of verticies passed in,
+	# deletes the cycle but leaves verticies
+	def delete_cycle_edges(self, cycle):
+		length = len(cycle)
+		for i in range(length):
+			self.delete_edge(cycle[i], cycle[(i+1) % length])
+		# end
+	# end
 
 	# dfs_helper() and dfs() adapted from
 	# https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
-	def dfs_allHelper(self, v, visited):
+	def dfs_geeks_helper(self, v, visited):
 		visited[v] = True
 		for j in self.graph[v]:
 			if visited[j.vertex] == False:
@@ -186,7 +185,7 @@ class Graph:
 		# end
 	# end
 
-	def dfs_all(self):
+	def dfs_geeks(self):
 		v = len(self.graph)
 		visited = [False] * (v)
 		for i in range(v):
@@ -200,23 +199,28 @@ class Graph:
 		# end
 		return True
 	# end
-  
+
+	def print_neighbors(self, v):
+		print(v, "'s neighbors:")
+		for i in self.graph[v]:
+			print("{} ".format(i.vertex), end="")
+		# end
+		print('\n')
+	# end
+
 	# Function to print the graph
-	def print_list(self, v= None):
+	def print_graph(self, v= None):
 		for i in range(self.size):
 			self.print_neighbors(i)
 		# end
 	# end
 
-	# TODO:
-	# implement print degree sequence, but before this can be done
-	# full implementation of degree counter must be completed
-	# def print_degreeSequence(self):
-	# 	for i in self.graph:
-	# 		print("{} ".format(i.degree), end="")
-	# 	# end
-	# # end
 # end
+
+# TODO: change graph so that the verticies are not also the
+# INDICIES. For example, if you set size = 10 for the petersen
+# graph and start your verticies at 1 you will have INDEX
+# OUT OF RANGE when creating the graph! Gah!
 
 # Petersen Graph
 size = 10
@@ -236,20 +240,17 @@ pg.add_edge(5, 8)
 pg.add_edge(6, 8)
 pg.add_edge(6, 9)
 pg.add_edge(7, 9)
-pg.cycle_finder(0)
+list = pg.bfs(3)
+print(list[1])
 
-# size = 6
+# size = 5
 # house = Graph(size)
+# house.add_edge(0,1)
+# house.add_edge(0,4)
 # house.add_edge(1,2)
-# house.add_edge(1,5)
+# house.add_edge(1,4)
 # house.add_edge(2,3)
-# house.add_edge(2,5)
-# house.add_edge(3,4)
-# house.add_edge(5,4)
-
-# house.dfs(1)
-# house.cycle_finder(2)
-# print(house.find_cycle(1))
+# house.add_edge(4,3)
 
 # size = 7
 # balloon = Graph(size)
@@ -260,17 +261,3 @@ pg.cycle_finder(0)
 # balloon.add_edge(2,4)
 # balloon.add_edge(3,4)
 # balloon.add_edge(5,6)
-#
-# balloon.cycle_finder(0)
-
-# pg.print_list()
-# pg.delete_vertex(8)
-# pg.delete_edge(0, 1)
-# pg.cycle_finder()
-# print(pg.dfs_all())
-# print(pg.bfs(0))
-# print(pg.dfs(1))
-# pg.cycleFinder(1)
-# print(pg.isCyclic())
-# pg.print_list()
-# pg.print_degreeSequence()
