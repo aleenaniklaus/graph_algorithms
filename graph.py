@@ -215,6 +215,15 @@ class Graph:
 		# end
 	# end
 
+	def degree_sequence(self):
+		number_nodes = self.size - 1
+		degree_seq = []
+		for i in range(number_nodes):
+			degree_seq.append(len(self.graph[i]))
+		# end
+		return degree_seq
+	#end
+
 # end
 
 # TODO: change graph so that the verticies are not also the
@@ -240,9 +249,9 @@ pg.add_edge(5, 8)
 pg.add_edge(6, 8)
 pg.add_edge(6, 9)
 pg.add_edge(7, 9)
-list = pg.bfs(3)
-print(list[1])
-
+# list = pg.bfs(3)
+# print(list[1])
+print(pg.degree_sequence())
 # size = 5
 # house = Graph(size)
 # house.add_edge(0,1)
