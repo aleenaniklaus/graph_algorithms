@@ -174,32 +174,6 @@ class Graph:
 		# end
 	# end
 
-	# dfs_helper() and dfs() adapted from
-	# https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
-	def dfs_geeks_helper(self, v, visited):
-		visited[v] = True
-		for j in self.graph[v]:
-			if visited[j.vertex] == False:
-				self.dfs_allHelper(j.vertex, visited)
-			# end
-		# end
-	# end
-
-	def dfs_geeks(self):
-		v = len(self.graph)
-		visited = [False] * (v)
-		for i in range(v):
-			if visited[i] == False:
-				# For debugging purposes, return false if dfs_helper()
-				# fails to run, likewise, return true at the end of fn
-				if self.dfs_helper(i, visited) == False:
-					return False
-				# end
-			# end
-		# end
-		return True
-	# end
-
 	def print_neighbors(self, v):
 		print(v, "'s neighbors:")
 		for i in self.graph[v]:
