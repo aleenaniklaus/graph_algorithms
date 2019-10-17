@@ -1,5 +1,5 @@
 # Graph Algorithms SP19
-We chose to use an Adjacency list as represented as an array of arrays.
+We chose to use an adjacency list as represented as an array of arrays.
 
 An alternative to the adjacency list is a sparce matrix. While using sparce matricies is common, syntax is overly complex as you must use Numpy/SciPy. Since these graphs are for proof of
 concept, there is no reason to use such powerful structures at this point in time. Additionally, graphs will be small, thus the heavy-duty machinery behind Numpy is not necessary.
